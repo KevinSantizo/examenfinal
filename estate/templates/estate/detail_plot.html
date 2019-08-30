@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Hola</h1>
+
+    {% for tree in trees %}
+        {{ tree.plot_name }}, {{ tree.plot_land }}<br>
+
+
+        {% if tree.trees %}
+
+        {% for tree_plot in tree.trees %}<br>
+                {{ tree_plot.id }}<br>
+                {{ tree_plot.diameter }}
+        {% endfor %}<br>
+
+        {% endif %}
+
+    {% endfor %}
+</body>
+</html>

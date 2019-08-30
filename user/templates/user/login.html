@@ -1,0 +1,43 @@
+{% extends 'user/base.html' %}
+{% block content %}
+
+<div class="limiter">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" action="{% url 'user:login' %}" method="POST">
+                    {% csrf_token %}
+					<span class="login100-form-logo">
+						<i class="zmdi zmdi-landscape"></i>
+					</span>
+
+					<span class="login100-form-title p-b-34 p-t-27">
+						Iniciar Sesión
+					</span>
+
+					<div class="wrap-input100 validate-input">
+                        <label>Nombre:</label>
+						<input   style="color: black;" class="input100" type="text" name="first_name" required>
+					</div>
+					<div class="form-group validate-input" data-validate="Enter password">
+                        <label style="">Tipo de usuario:</label>
+						<select name="permissions" class="input100" style="color: black;">
+                            <option value="0">Colaborador</option>
+                            <option value="1">Administrador</option>
+                        </select>
+						<span  data-placeholder="&#xf191;"></span>
+					</div>
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">
+							Iniciar Sesión
+						</button>
+					</div>
+				</form>
+                <a href="{% url 'user:register' %}" style="color: black; a:hover{color: white;}">¿Necesita una cuenta?</a>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="dropDownSelect1"></div>
+
+{% endblock %}

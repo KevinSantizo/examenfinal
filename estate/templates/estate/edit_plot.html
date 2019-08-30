@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html>
+	<head>
+		<title>Acciones</title>
+		<meta charset="utf-8" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1>Acciones</h1>
+						<p>Agregar, realizar cambios, eliminar etc...</p>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+							<section id="content" class="main">
+								<h2><strong>Editar Información <br>{{ plot.name }}</strong></h2>
+                                <form action="{% url 'estate:edit-plot' plot.pk %}" method="POST">
+                                    {% csrf_token %}
+                                  <div class="form-group">
+                                    <label style="padding-top: 2em;">Finca:</label>
+                                      <select name="land">
+                                          {% for land in lands %}
+                                          <option value="{{ land.id }}" {% if land.id == land_instance.land.id %} selected="selected" {% endif %}>{{ land.name }}</option>
+                                          {% endfor %}
+                                      </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Nombre:</label>
+                                    <input type="text" class="form-control" value="{{ plot.name }}" name="name" placeholder="Nombre" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Latitud:</label>
+                                    <input type="text" class="form-control" value="{{ plot.latitude }}" name="latitude" placeholder="Latitud" required>
+                                  </div>
+                                  <div class="form-group">
+                                    <label>Longitud:</label>
+                                    <input type="text" class="form-control" value="{{ plot.length }}" name="length" placeholder="Longitud" required>
+                                  </div>
+                                  <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                </form>
+                              <button type="submit" class="btn btn-danger" style="margin-top: -9.5em; margin-left: 10em;"><a href="{% url 'estate:actions-plot' plot.pk %}">Cancelar</a></button>
+                            </section>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<ul class="actions">
+                                <br><li><a href="{% url 'estate:actions-plot' plot.pk %}" class="button" style="margin-top: 1em;">Regresar</a></li>
+							</ul>
+						</section>
+						<section>
+							<h2>Hulera</h2>
+								<dd>Ciudad de Guatemala</dd>
+							<ul class="icons">
+								<li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon brands fa-facebook-f alt"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands fa-instagram alt"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon brands fa-dribbble alt"><span class="label">Dribbble</span></a></li>
+							</ul>
+						</section>
+						<p class="copyright">&copy; Design: <a href="http://apitec.io/" target="_blank">APITEC</a>.</p>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>

@@ -1,0 +1,138 @@
+{% extends 'estate/base.html' %}
+{% block content %}
+<div id="wrapper">
+
+				<!-- Header -->
+                    {% load static %}
+					<header id="header" class="alt">
+						<span class="logo"><img src="{% static 'images/arbolito.svg' %}" style="width: 10em;" alt="" /></span>
+						<h1>Hulera</h1>
+						<p>Usuario: {{ user.first_name }} {{ user.last_name }}<br/>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li><a href="#intro" class="active">Introducción</a></li>
+							<li><a href="#first">Fincas</a></li>
+							<li><a href="#second">Parcelas</a></li>
+							<li><a href="#cta">Árboles</a></li>
+							<li><a href="{% url 'user:login' %}">Cerrar Sesión</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Introduction -->
+							<section id="intro" class="main">
+								<div class="spotlight">
+									<div class="content">
+										<header class="major">
+											<h2>Bienvenido al Sistema de Administración de Fincas</h2>
+										</header>
+										<p>Aquí podrá ver las Fincas y sus parcelas y la cantidad de Árboles en cada Parcela</p>
+									</div>
+									<span class="image"><img src="{% static 'images/finquita.jpg' %}" alt="" /></span>
+								</div>
+							</section>
+
+						<!-- First Section -->
+							<section id="first" class="main special">
+								<header class="major">
+									<h2>Fincas</h2>
+								</header>
+								<ul class="features">
+                                    {% for land in lands %}
+									<li>
+									<span class="image"><img src="{% static 'images/finca.jpg' %}" style="width: 100%;" alt="" /></span>
+										<h3>{{ land.name }}</h3>
+                                        <p>Ubicada en: {{ land.country }}</p>
+                                        <p>Región: {{ land.region }}</p>
+									</li>
+                                    {% endfor %}
+								</ul>
+								<footer class="major">
+									<ul class="actions special">
+                                        {% if user.permissions == '0' %}
+                                        <li><button class="button" disabled><a href="" disabled>Acciones<br></a><p style="color:red; font-weight: bold;">No puedes realizar acciones</p></button></li>
+                                        {% else %}
+                                        <li><button class="button"><a href="{% url 'estate:actions' user.pk %}">Acciones</a></button></li>
+                                        {% endif %}
+									</ul>
+								</footer>
+							</section>
+
+						<!-- Second Section -->
+						<section id="second" class="main special">
+								<header class="major">
+									<h2>Parcelas</h2>
+								</header>
+								<ul class="features">
+                                    {% for plot in plots %}
+									<li>
+									<span class="image"><img src="{% static 'images/parcela.jpg' %}" style="width: 100%;" alt="" /></span>
+										<h3>{{ plot.name }}</h3>
+										<p>Finca: {{ plot.land.name }}</p>
+                                        <p>Latitud: {{ plot.latitude }}</p>
+                                        <p>Longitud: {{ plot.length }}</p>
+									</li>
+                                    {% endfor %}
+								</ul>
+								<footer class="major">
+									<ul class="actions special">
+                                        {% if user.permissions == '0' %}
+                                        <li><button class="button"><a href="{% url 'estate:detail-plot-land' user.pk %}">Ver en Orden <br></a></button></li>
+                                        {% else %}
+                                        <li><button class="button"><a href="{% url 'estate:actions-plot' user.pk %}">Acciones</a></button></li>
+                                        {% endif %}
+									</ul>
+								</footer>
+							</section>
+							<section id="cta" class="main special">
+								<header class="major">
+									<h2>Árboles</h2>
+								</header>
+								<ul class="features">
+                                    {% for tree in trees %}
+									<li>
+									<span class="image"><img src="{% static 'images/arboles.png' %}" style="width: 100%;" alt="" /></span>
+										<h2><strong>Árbol No. {{ tree.id }}</strong></h2>
+										<h3>Diámetro {{ tree.diameter }}</h3>
+										<p>Parcela: {{ tree.plot.name }}</p>
+                                        <p>Finca: {{ tree.plot.land.name }}</p>
+                                        <p>Altura: {{ tree.height }}</p>
+										<p>Salud: {{ tree.health }}</p>
+										<p>Año: {{ tree.year }}</p>
+									</li>
+                                    {% endfor %}
+								</ul>
+								<footer class="major">
+									<ul class="actions special">
+                                        {% if user.permissions == '0' %}
+                                        <li><button class="button"><a href="{% url 'estate:actions-tree-user' user.pk %}">Acciones</a></button></li>
+                                        {% else %}
+                                        <li><button class="button"><a href="{% url 'estate:actions-tree-admin' user.pk %}">Acciones</a></button></li>
+                                        {% endif %}
+									</ul>
+								</footer>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<ul class="icons">
+								<li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon brands fa-facebook-f alt"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands fa-instagram alt"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon brands fa-dribbble alt"><span class="label">Dribbble</span></a></li>
+							</ul>
+						</section>
+						<p class="copyright">&copy; Design: <a href="http://apitec.io/" target="_blank">APITEC</a>.</p>
+					</footer>
+
+			</div>
+{% endblock %}

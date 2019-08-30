@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html>
+	<head>
+		<title>Acciones</title>
+		<meta charset="utf-8" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+        <style>
+            th, td {
+                text-align: center !important;
+            }
+
+        </style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1>Árboles</h1>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+                        {% for tree in trees %}
+							<section id="content" class="main">
+                                <table class="table table-striped" style="width: 75%; align-items: center; margin-left: 9em;">
+                                  <thead>
+                                    <tr style="background-color: #85929E;">
+                                      <th colspan="5" scope="col" style="text-align: center; color: black;">{{ tree.plot_name }}, {{ tree.plot_land }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Diámetro</th>
+                                        <th>Altura</th>
+                                        <th>Salud</th>
+                                        <th>Año</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                           {% if tree.trees %}
+                                {% for tree_plot in tree.trees %}
+                                    <tr>
+                                      <td>{{ forloop.counter }}</td>
+                                      <td>{{ tree_plot.diameter }}</td>
+                                      <td>{{ tree_plot.height }}</td>
+                                      <td>{{ tree_plot.health }}</td>
+                                      <td>{{ tree_plot.year }}</td>
+                                    </tr>
+                                  {% endfor %}
+                            <td colspan="5">
+                                  <a href="{% url 'estate:new-tree-user' tree_pk %}" class="button" style="margin-top: 1em;">Nuevo Árbol</a>
+                            </td>
+                           {% else %}
+                                <tr>
+                                  <td colspan="4">Aún no se han agregado árboles
+                                  <br><a href="{% url 'estate:new-tree-user' tree_pk %}" class="button" style="margin-top: 1em;">Nuevo Árbol</a>
+                                  </td>
+                                </tr>
+                           {% endif %}
+                                  </tbody>
+                                </table>
+                                <br>
+                            </section>
+                        {% endfor %}
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<h2>Árboles: {{ num_tress }}</h2>
+							<ul class="actions">
+                                <br><li><a href="{% url 'estate:actions-tree-user' tree_pk %}" class="button" style="margin-top: 1em;">Regresar</a></li>
+                                <br><li><a href="{% url 'estate:new-tree-user' tree_pk %}" class="button" style="margin-top: 1em;">Nuevo Árbol</a></li>
+
+                            </ul>
+						</section>
+						<section>
+							<h2>Hulera</h2>
+								<dd>Ciudad de Guatemala</dd>
+							<ul class="icons">
+								<li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon brands fa-facebook-f alt"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands fa-instagram alt"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
+								<li><a href="#" class="icon brands fa-dribbble alt"><span class="label">Dribbble</span></a></li>
+							</ul>
+						</section>
+						<p class="copyright">&copy; Design: <a href="http://apitec.io/" target="_blank">APITEC</a>.</p>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+
+	</body>
+</html>
+
+
+
